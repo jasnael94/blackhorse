@@ -21,6 +21,9 @@ class Category
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'Category_id')]
     private Collection $products;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Title = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -64,6 +67,18 @@ class Category
                 $product->setCategoryId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->Title;
+    }
+
+    public function setTitle(string $Title): static
+    {
+        $this->Title = $Title;
 
         return $this;
     }
